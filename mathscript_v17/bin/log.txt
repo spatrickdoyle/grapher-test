@@ -1,0 +1,30 @@
+Loading HTML page (Tue Sep 12 16:49:45 CDT 2017)
+Loading HTML page (Tue Sep 12 16:49:48 CDT 2017)
+Writing configuration file
+Attempting to open ./config1.txt for writing
+Checking if lockfile exists
+Attempting to open ./lock for reading
+Generating graphs
+Attempting to open ./lock for writing
+Running script at ./test_script.sh
+Waiting for script to finish generating images
+Loading HTML page (Tue Sep 12 16:49:52 CDT 2017)
+Writing configuration file
+Displaying generated graphs
+
+Loading HTML page (Tue Sep 12 16:51:48 CDT 2017)
+Loading HTML page (Tue Sep 12 16:51:53 CDT 2017)
+Writing configuration file
+Attempting to open ./config1.txt for writing
+Successfully wrote config file
+Checking if lockfile exists
+Attempting to open ./lock for reading
+Successfully read lock file
+Generating graphs
+Attempting to open ./lock for writing
+Successfully wrote lock file
+Running script at ./test_script.sh
+Waiting for script to finish generating images
+Loading HTML page (Tue Sep 12 16:52:00 CDT 2017)
+Displaying generated graphs
+

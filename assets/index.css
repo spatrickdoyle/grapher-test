@@ -1,0 +1,65 @@
+html {
+	text-align: center;
+}
+
+/*h1 {
+	margin-left: auto;
+}*/
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+	width: 95%;
+}
+
+td {
+	/*width: 30%;*/
+	padding: 20px;
+
+	border-style: solid;
+	border-color: black;
+	border-width: 1px;
+
+	background-color: #ffffff;
+}
+
+img {
+	border-style: solid;
+	border-color: black;
+	border-width: 1px;
+}
+
+.fadeOut {
+	visibility: hidden;
+	opacity: 0;
+	display: none;
+	transition: visibility 0s linear 300ms, opacity 300ms;
+}
+
+.fadeOut * {
+	display: none;
+}
+
+.fadeIn {
+	visibility: visible;
+	opacity: 1;
+	display: default;
+	transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+.fadeIn * {
+	display: default;
+}
+
+.bar {
+	position: relative;
+	right: 5pt;
+}
+
+.mdl-textbox {
+	width: 30%;
+}
+
+button {
+	width: 150px;
+}
