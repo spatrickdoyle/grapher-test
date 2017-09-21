@@ -1,4 +1,4 @@
-import os,time,glob
+import os,time,glob,sys
 from elements import *
 
 def TAB(num):
@@ -22,27 +22,32 @@ def makeConfig(test_boxes):
 
     #Open the file itself
     os.system("echo 'Attempting to open "+MATH+CONFIG+" for writing' >> "+MATH+"log.txt")
-    configFile = open(MATH+CONFIG,'w+')
-    #Write the version of the Mathematica script
-    configFile.write("#Version %s\n"%VERSION)
-    #Write the timestamp
-    configFile.write(time.strftime("#%X %x\n\n"))
 
-    #Generate the job ID
-    all_elements = test_boxes
+    try:
+        configFile = open(MATH+CONFIG,'w+')
+        #Write the version of the Mathematica script
+        configFile.write("#Version %s\n"%VERSION)
+        #Write the timestamp
+        configFile.write(time.strftime("#%X %x\n\n"))
 
-    jobID = getJobID(all_elements)
+        #Generate the job ID
+        all_elements = test_boxes
 
-    #Job ID
-    configFile.write("Job ID: %s\n"%jobID)
+        jobID = getJobID(all_elements)
 
-    flagstr = ""
-    for box in test_boxes:
-        flagstr += "     %d"%box.getState()
-    configFile.write("Boxes checked:%s\n\n"%(flagstr[3:]))
+        #Job ID
+        configFile.write("Job ID: %s\n"%jobID)
 
-    configFile.close()
-    os.system("echo 'Successfully wrote config file' >> "+MATH+"log.txt")
+        flagstr = ""
+        for box in test_boxes:
+            flagstr += "     %d"%box.getState()
+        configFile.write("Boxes checked:%s\n\n"%(flagstr[3:]))
+
+        configFile.close()
+        os.system("echo 'Successfully wrote config file' >> "+MATH+"log.txt")
+    except:
+        os.system("echo 'Failed with "+sys.exc_info()[0].__name__+": "+sys.exc_info()[1].message+"' >> "+MATH+"log.txt")
+        raise
 
     return jobID
 
@@ -55,9 +60,15 @@ def makeGraph(jobID):
 
     #Create lockfile containing job ID of the image being generated
     os.system("echo 'Attempting to open "+MATH+"lock for writing' >> "+MATH+"log.txt")
-    lockfile = file(MATH+'lock','w+')
-    lockfile.write("%s\n%s\n%s\n%s\n"%(jobID,time.strftime("%X %x"),os.environ["REMOTE_ADDR"],os.environ['HTTP_USER_AGENT']))#Write job ID, time and date of creation, invoking host ip, and user agent 
-    lockfile.close()
+
+    try:
+        lockfile = file(MATH+'lock','w+')
+        lockfile.write("%s\n%s\n%s\n%s\n"%(jobID,time.strftime("%X %x"),os.environ["REMOTE_ADDR"],os.environ['HTTP_USER_AGENT']))#Write job ID, time and date of creation, invoking host ip, and user agent 
+        lockfile.close()
+    except:
+        os.system("echo 'Failed with "+sys.exc_info()[0].__name__+": "+sys.exc_info()[1].message+"' >> "+MATH+"log.txt")
+        raise
+
     os.system("echo 'Successfully wrote lock file' >> "+MATH+"log.txt")
 
     #Invoke the program

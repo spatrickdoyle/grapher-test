@@ -131,9 +131,15 @@ if len(form) != 0:
         else:
             #Otherwise, read the job ID of the lockfile
             os.system("echo 'Attempting to open "+MATH+"lock for reading' >> "+MATH+"log.txt")
-            lockfile = file(MATH+'lock','r')
-            prevID = lockfile.readline()[:-1]
-            lockfile.close()
+
+            try:
+                lockfile = file(MATH+'lock','r')
+                prevID = lockfile.readline()[:-1]
+                lockfile.close()
+            except:
+                os.system("echo 'Failed with "+sys.exc_info()[0].__name__+": "+sys.exc_info()[1].message+"' >> "+MATH+"log.txt")
+                raise
+
             os.system("echo 'Successfully read lock file' >> "+MATH+"log.txt")
 
             #See if an output with the corresponding ID already exists, and if it does, delete the lockfile and generate the new graph

@@ -28,3 +28,37 @@ Waiting for script to finish generating images
 Loading HTML page (Tue Sep 12 16:52:00 CDT 2017)
 Displaying generated graphs
 
+Loading HTML page (Wed Sep 20 11:10:00 CDT 2017)
+Loading HTML page (Thu Sep 21 10:10:40 CDT 2017)
+Loading HTML page (Thu Sep 21 10:10:48 CDT 2017)
+Writing configuration file
+Attempting to open ./config1.txt for writing
+Successfully wrote config file
+Checking if lockfile exists
+Attempting to open ./lock for reading
+Successfully read lock file
+Generating graphs
+Attempting to open ./lock for writing
+Successfully wrote lock file
+Running script at ./test_script.sh
+Waiting for script to finish generating images
+Loading HTML page (Thu Sep 21 10:10:52 CDT 2017)
+Displaying generated graphs
+
+Loading HTML page (Thu Sep 21 10:20:42 CDT 2017)
+Loading HTML page (Thu Sep 21 10:20:45 CDT 2017)
+Writing configuration file
+Attempting to open ./config1.txt for writing
+Successfully wrote config file
+Checking if lockfile exists
+Attempting to open ./lock for reading
+Successfully read lock file
+Generating graphs
+Attempting to open ./lock for writing
+Successfully wrote lock file
+Running script at ./test_script.sh
+Waiting for script to finish generating images
+Loading HTML page (Thu Sep 21 10:20:55 CDT 2017)
+Displaying generated graphs
+
+Loading HTML page (Thu Sep 21 10:20:58 CDT 2017)
