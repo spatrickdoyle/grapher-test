@@ -11,7 +11,7 @@ IMAGE = '/test_image2.png'
 #CWD = "/home/sean/Programs/git-repos/physics-research/mathscript_v%s/bin"%VERSION
 CWD = "./mathscript_v%s/bin/"%VERSION
 
-os.chdir(CWD)
+#os.chdir(CWD)
 
 #Test checkboxes
 test_boxes = [mdl.CheckBox(str(i),str(i),False,'test') for i in range(4)]

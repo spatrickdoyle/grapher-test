@@ -19,9 +19,14 @@ import glob,os,time
 #Mathscript interface
 from mathscript import *
 
+
+#os.chdir(CWD)
+
+
 #Create all the input elements that will be on the page
 
 os.system("echo 'Loading HTML page ('$(date)')' >> "+MATH+"log.txt")
+os.system("echo 'Current working directory is ' >> "+os.getcwd()+"log.txt")
 
 #Get data from submitted form
 form = cgi.FieldStorage()
