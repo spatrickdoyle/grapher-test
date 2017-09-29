@@ -20,13 +20,13 @@ import glob,os,time
 from mathscript import *
 
 
-#os.chdir(CWD)
+os.chdir(AROOT)
 
 
 #Create all the input elements that will be on the page
 
-os.system("echo 'Loading HTML page ('$(date)')' >> "+MATH+"log.txt")
-os.system("echo 'Current working directory is ' >> "+os.getcwd()+"log.txt")
+log("Loading HTML page ('$(date)')")
+log("Current working directory is "+os.getcwd())
 
 #Get data from submitted form
 form = cgi.FieldStorage()
@@ -54,6 +54,7 @@ print TAB(2)+"<script src='%sindex.js'></script>"%ASSETS
 print TAB(1)+"</head>"
 
 print TAB(1)+"<body>"
+print "updated 3:42"
 print TAB(2)+"<h1>LHC Grapher Test</h1>"
 print TAB(2)+"<h2>Southern Methodist University Physics Department</h2>\n"
 
@@ -112,7 +113,7 @@ if len(form) != 0:
 
     if len(images) != 0:
         #If it is, display and nicely format the generated images
-        os.system("echo 'Displaying generated graphs\n' >> "+MATH+"log.txt")
+        log("Displaying generated graphs\n")
         print "<a href='%s'>Download configuration file</a>"%(JS_PREFIX+CONFIG)
 
         print "<table style='width:100%'><tr>"
@@ -121,31 +122,30 @@ if len(form) != 0:
             print TAB(2)+"<img style='width:100%;max-width:800px' src='"+JS_PREFIX+image+"'/><br/>\n"
             print "<a href='../mathscript_v16/"+JS_PREFIX+image+"'>View full image</a></td>"
         print "</tr><br/><tr>"
-
         print "</tr></table>"
     else:
-        os.system("echo 'Writing configuration file' >> "+MATH+"log.txt")
+        log("Writing configuration file")
         makeConfig(test_boxes)
 
         #Check for the presence of the lockfile
-        os.system("echo 'Checking if lockfile exists' >> "+MATH+"log.txt")
+        log("Checking if lockfile exists")
         present = glob.glob(MATH+"lock")
         if len(present) == 0:
             #If it isn't there, run the program
             makeGraph(jobID)
         else:
             #Otherwise, read the job ID of the lockfile
-            os.system("echo 'Attempting to open "+MATH+"lock for reading' >> "+MATH+"log.txt")
+            log("Attempting to open "+MATH+"lock for reading")
 
             try:
                 lockfile = file(MATH+'lock','r')
                 prevID = lockfile.readline()[:-1]
                 lockfile.close()
             except:
-                os.system("echo 'Failed with "+sys.exc_info()[0].__name__+": "+sys.exc_info()[1].message+"' >> "+MATH+"log.txt")
+                log("Failed with "+sys.exc_info()[0].__name__)
                 raise
 
-            os.system("echo 'Successfully read lock file' >> "+MATH+"log.txt")
+            log("Successfully read lock file")
 
             #See if an output with the corresponding ID already exists, and if it does, delete the lockfile and generate the new graph
             prevPath = OUTPUT+prevID+IMAGE
@@ -154,7 +154,7 @@ if len(form) != 0:
                 makeGraph(jobID)
             else:
                 #If not, assume another process is running and wait until an output with the lockfile ID has been generated, then reload the page
-                os.system("echo 'Waiting for previous job to finish' >> "+MATH+"log.txt")
+                log("Waiting for previous job to finish")
                 print TAB(2)+"<h3 id='graph'>Waiting for another request to finish...</h3><br/>\n"
                 print TAB(2)+'<script>var loop = setInterval(function() { if (UrlExists("%s")) { clearInterval(loop); location.reload();} }, 3000);</script>'%(JS_PREFIX+prevPath)
 

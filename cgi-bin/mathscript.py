@@ -9,6 +9,17 @@ def TAB(num):
 
     return ('    '*num)
 
+def log(msg):
+    #string msg: message to print to logfile
+
+    #os.system("echo '"+msg+"' >> "+AROOT+"log.txt")
+    print "opening logfile for writing"
+    logfile = open(AROOT+"log.txt","w")
+    print "writing '"+msg+"'"
+    logfile.write(msg+'\n')
+    print "closing file"
+    logfile.close()
+
 def getJobID(all_elements):
     jobStr = ''.join([str(t.getState()) for t in all_elements])
     jobID = str(int(sum([(ord(jobStr[i])-45)*i for i in range(len(jobStr))])))
@@ -21,7 +32,7 @@ def makeConfig(test_boxes):
     #Generates and writes the configuration file for the given set of parameters
 
     #Open the file itself
-    os.system("echo 'Attempting to open "+MATH+CONFIG+" for writing' >> "+MATH+"log.txt")
+    log("Attempting to open "+MATH+CONFIG+" for writing")
 
     try:
         configFile = open(MATH+CONFIG,'w+')
@@ -44,9 +55,9 @@ def makeConfig(test_boxes):
         configFile.write("Boxes checked:%s\n\n"%(flagstr[3:]))
 
         configFile.close()
-        os.system("echo 'Successfully wrote config file' >> "+MATH+"log.txt")
+        log("Successfully wrote config file")
     except:
-        os.system("echo 'Failed with "+sys.exc_info()[0].__name__+": "+sys.exc_info()[1].message+"' >> "+MATH+"log.txt")
+        log("Failed with "+sys.exc_info()[0].__name__)
         raise
 
     return jobID
@@ -56,29 +67,29 @@ def makeGraph(jobID):
     #jobID: the ID of the job that is invoking the Mathematica script
     #Make a lockfile, invoke the Mathematica script, wait until the graph has been generated, and display it
 
-    os.system("echo 'Generating graphs' >> "+MATH+"log.txt")
+    log("Generating graphs")
 
     #Create lockfile containing job ID of the image being generated
-    os.system("echo 'Attempting to open "+MATH+"lock for writing' >> "+MATH+"log.txt")
+    log("Attempting to open "+MATH+"lock for writing")
 
     try:
         lockfile = file(MATH+'lock','w+')
         lockfile.write("%s\n%s\n%s\n%s\n"%(jobID,time.strftime("%X %x"),os.environ["REMOTE_ADDR"],os.environ['HTTP_USER_AGENT']))#Write job ID, time and date of creation, invoking host ip, and user agent 
         lockfile.close()
     except:
-        os.system("echo 'Failed with "+sys.exc_info()[0].__name__+": "+sys.exc_info()[1].message+"' >> "+MATH+"log.txt")
+        log("Failed with "+sys.exc_info()[0].__name__)
         raise
 
-    os.system("echo 'Successfully wrote lock file' >> "+MATH+"log.txt")
+    log("Successfully wrote lock file")
 
     #Invoke the program
-    os.system("echo 'Running script at "+MATH+"test_script.sh' >> "+MATH+"log.txt")
+    log("Running script at "+MATH+"test_script.sh")
     os.system(MATH+"test_script.sh&")
 
     #Check every 2 seconds to see if the graph is done being generated, and display it when it is
     path = JS_PREFIX+OUTPUT+jobID+IMAGE
 
-    os.system("echo 'Waiting for script to finish generating images' >> "+MATH+"log.txt")
+    log("Waiting for script to finish generating images")
     print TAB(2)+"<h3 id='graph'>Loading...<h3/><br/>\n"
     #print TAB(2)+"""<script>var loop = setInterval(function() { if (UrlExists("%s")) { clearInterval(loop); document.getElementById('graph').src = "%s"; }; }, 2000);</script>"""%(path,path)
     print TAB(2)+"""<script>var loop = setInterval(function() { if (UrlExists("%s")) { clearInterval(loop); document.getElementById('graph').innerHTML = "<a onclick='window.location.reload()'>Click to view plots</a>"; }; }, 2000);</script>"""%(path)
