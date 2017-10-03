@@ -14,8 +14,8 @@ def log(msg):
 
     #os.system("echo '"+msg+"' >> "+AROOT+"log.txt")
     #print "opening logfile for writing"
-    logfile = open(AROOT+"log.txt","w")
-    #print "writing '"+msg+"'"
+    logfile = open(AROOT+"log.txt","a")
+    print "writing '"+msg+"'"
     logfile.write(msg+'\n')
     #print "closing file"
     logfile.close()
@@ -89,7 +89,7 @@ def makeGraph(jobID):
     #Check every 2 seconds to see if the graph is done being generated, and display it when it is
     path = ROUTPUT+jobID+IMAGE
 
-    log("Waiting for script to finish generating images")
+    log("Waiting for script to finish generating images\n")
     print TAB(2)+"<h3 id='graph'>Loading...<h3/><br/>\n"
     #print TAB(2)+"""<script>var loop = setInterval(function() { if (UrlExists("%s")) { clearInterval(loop); document.getElementById('graph').src = "%s"; }; }, 2000);</script>"""%(path,path)
     print TAB(2)+"""<script>var loop = setInterval(function() { if (UrlExists("%s")) { clearInterval(loop); document.getElementById('graph').innerHTML = "<a onclick='window.location.reload()'>Click to view plots</a>"; }; }, 2000);</script>"""%(path)

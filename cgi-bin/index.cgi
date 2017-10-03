@@ -25,7 +25,7 @@ from mathscript import *
 
 #Create all the input elements that will be on the page
 
-log("Loading HTML page ('$(date)')")
+log("Loading HTML page "+time.asctime())
 log("Current working directory is "+os.getcwd())
 
 #Get data from submitted form
