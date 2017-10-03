@@ -13,11 +13,11 @@ def log(msg):
     #string msg: message to print to logfile
 
     #os.system("echo '"+msg+"' >> "+AROOT+"log.txt")
-    print "opening logfile for writing"
+    #print "opening logfile for writing"
     logfile = open(AROOT+"log.txt","w")
-    print "writing '"+msg+"'"
+    #print "writing '"+msg+"'"
     logfile.write(msg+'\n')
-    print "closing file"
+    #print "closing file"
     logfile.close()
 
 def getJobID(all_elements):
@@ -32,10 +32,10 @@ def makeConfig(test_boxes):
     #Generates and writes the configuration file for the given set of parameters
 
     #Open the file itself
-    log("Attempting to open "+MATH+CONFIG+" for writing")
+    log("Attempting to open "+AMATH+CONFIG+" for writing")
 
     try:
-        configFile = open(MATH+CONFIG,'w+')
+        configFile = open(AMATH+CONFIG,'w+')
         #Write the version of the Mathematica script
         configFile.write("#Version %s\n"%VERSION)
         #Write the timestamp
@@ -70,10 +70,10 @@ def makeGraph(jobID):
     log("Generating graphs")
 
     #Create lockfile containing job ID of the image being generated
-    log("Attempting to open "+MATH+"lock for writing")
+    log("Attempting to open "+AMATH+"lock for writing")
 
     try:
-        lockfile = file(MATH+'lock','w+')
+        lockfile = file(AMATH+'lock','w+')
         lockfile.write("%s\n%s\n%s\n%s\n"%(jobID,time.strftime("%X %x"),os.environ["REMOTE_ADDR"],os.environ['HTTP_USER_AGENT']))#Write job ID, time and date of creation, invoking host ip, and user agent 
         lockfile.close()
     except:
@@ -83,11 +83,11 @@ def makeGraph(jobID):
     log("Successfully wrote lock file")
 
     #Invoke the program
-    log("Running script at "+MATH+"test_script.sh")
-    os.system(MATH+"test_script.sh&")
+    log("Running script at "+AMATH+"test_script.sh")
+    os.system(AMATH+"test_script.sh "+AOUTPUT+" "+AMATH+" &")
 
     #Check every 2 seconds to see if the graph is done being generated, and display it when it is
-    path = JS_PREFIX+OUTPUT+jobID+IMAGE
+    path = ROUTPUT+jobID+IMAGE
 
     log("Waiting for script to finish generating images")
     print TAB(2)+"<h3 id='graph'>Loading...<h3/><br/>\n"
