@@ -20,13 +20,10 @@ import glob,os,time
 from mathscript import *
 
 
-#os.chdir(AROOT)
+os.chdir(AROOT)
 
 
 #Create all the input elements that will be on the page
-
-log("Loading HTML page "+time.asctime())
-log("Current working directory is "+os.getcwd())
 
 #Get data from submitted form
 form = cgi.FieldStorage()
@@ -54,7 +51,8 @@ print TAB(2)+"<script src='%sindex.js'></script>"%ASSETS
 print TAB(1)+"</head>"
 
 print TAB(1)+"<body>"
-print os.getcwd()
+log("Loading HTML page "+time.asctime())
+log("Current working directory is "+os.getcwd())
 print TAB(2)+"<h1>LHC Grapher Test</h1>"
 print TAB(2)+"<h2>Southern Methodist University Physics Department</h2>\n"
 

@@ -12,13 +12,10 @@ def TAB(num):
 def log(msg):
     #string msg: message to print to logfile
 
-    #os.system("echo '"+msg+"' >> "+AROOT+"log.txt")
-    #print "opening logfile for writing"
-    logfile = open(AROOT+"log.txt","a")
-    print "writing '"+msg+"'"
-    logfile.write(msg+'\n')
-    #print "closing file"
-    logfile.close()
+#    logfile = open(AROOT+"log.txt","a")
+    print msg+"<br/>"
+#    logfile.write(msg+'\n')
+#    logfile.close()
 
 def getJobID(all_elements):
     jobStr = ''.join([str(t.getState()) for t in all_elements])
